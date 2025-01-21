@@ -1,0 +1,88 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\impul\\Documents\\CosmosDbAppService\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B6EA8A60-B92F-4877-B7C6-4F15284FBA26}|CosmosDbAppService.csproj|c:\\users\\impul\\documents\\cosmosdbappservice\\controllers\\cosmoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B6EA8A60-B92F-4877-B7C6-4F15284FBA26}|CosmosDbAppService.csproj|solutionrelative:controllers\\cosmoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6EA8A60-B92F-4877-B7C6-4F15284FBA26}|CosmosDbAppService.csproj|c:\\users\\impul\\documents\\cosmosdbappservice\\services\\cosmodbservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B6EA8A60-B92F-4877-B7C6-4F15284FBA26}|CosmosDbAppService.csproj|solutionrelative:services\\cosmodbservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6EA8A60-B92F-4877-B7C6-4F15284FBA26}|CosmosDbAppService.csproj|c:\\users\\impul\\documents\\cosmosdbappservice\\apikeymiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B6EA8A60-B92F-4877-B7C6-4F15284FBA26}|CosmosDbAppService.csproj|solutionrelative:apikeymiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6EA8A60-B92F-4877-B7C6-4F15284FBA26}|CosmosDbAppService.csproj|c:\\users\\impul\\documents\\cosmosdbappservice\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B6EA8A60-B92F-4877-B7C6-4F15284FBA26}|CosmosDbAppService.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ApiKeyMiddleware.cs",
+              "DocumentMoniker": "C:\\Users\\impul\\Documents\\CosmosDbAppService\\ApiKeyMiddleware.cs",
+              "RelativeDocumentMoniker": "ApiKeyMiddleware.cs",
+              "ToolTip": "C:\\Users\\impul\\Documents\\CosmosDbAppService\\ApiKeyMiddleware.cs*",
+              "RelativeToolTip": "ApiKeyMiddleware.cs*",
+              "ViewState": "AgIAABUAAAAAAAAAAAAowCMAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-21T07:06:16.662Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CosmoDbService.cs",
+              "DocumentMoniker": "C:\\Users\\impul\\Documents\\CosmosDbAppService\\Services\\CosmoDbService.cs",
+              "RelativeDocumentMoniker": "Services\\CosmoDbService.cs",
+              "ToolTip": "C:\\Users\\impul\\Documents\\CosmosDbAppService\\Services\\CosmoDbService.cs",
+              "RelativeToolTip": "Services\\CosmoDbService.cs",
+              "ViewState": "AgIAACMAAAAAAAAAAAAwwBIAAABmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-17T07:31:34.462Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CosmosController.cs",
+              "DocumentMoniker": "C:\\Users\\impul\\Documents\\CosmosDbAppService\\Controllers\\CosmosController.cs",
+              "RelativeDocumentMoniker": "Controllers\\CosmosController.cs",
+              "ToolTip": "C:\\Users\\impul\\Documents\\CosmosDbAppService\\Controllers\\CosmosController.cs",
+              "RelativeToolTip": "Controllers\\CosmosController.cs",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAcwGQAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-15T07:14:42.667Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\impul\\Documents\\CosmosDbAppService\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\impul\\Documents\\CosmosDbAppService\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABMAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-14T13:44:04.751Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
