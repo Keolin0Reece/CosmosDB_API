@@ -11,12 +11,10 @@ using Newtonsoft.Json.Linq;
 public class CosmosController : ControllerBase
 {
     private readonly CosmosDbService _cosmosDbService;
-    private readonly ILogger<CosmosController> _logger;
 
-    public CosmosController(CosmosDbService cosmosDbService, ILogger<CosmosController> logger)
+    public CosmosController(CosmosDbService cosmosDbService)
     {
         _cosmosDbService = cosmosDbService;
-        _logger = logger;
     }
 
     [HttpPost]
@@ -24,8 +22,6 @@ public class CosmosController : ControllerBase
     {
         try
         {
-            _logger.LogInformation("Processing POST request to store data in Cosmos DB.");
-
             // Parse the raw data from the requestBody
             string eventId = requestBody.EventId;
             string eventName = requestBody.Event;
@@ -36,12 +32,9 @@ public class CosmosController : ControllerBase
             string productId = requestBody.ProductId;
             string fwVersion = requestBody.FwVersion;
 
-            _logger.LogInformation("Parsed request data: EventId={EventId}, DeviceId={DeviceId}", eventId, deviceId);
-
             // Validate the 'Data' field
             if (string.IsNullOrEmpty(data))
             {
-                _logger.LogInformation("Data field is missing in the request.");
                 return BadRequest(new { error = "Data is required." });
             }
 
@@ -53,7 +46,6 @@ public class CosmosController : ControllerBase
             }
             catch (JsonException ex)
             {
-                _logger.LogInformation(ex, "Failed to deserialize the 'Data' field.");
                 return BadRequest(new { error = "Data field is not valid JSON." });
             }
 
@@ -72,36 +64,59 @@ public class CosmosController : ControllerBase
 
             // Store in Cosmos DB
             await _cosmosDbService.AddItemAsync(particleEvent);
-            _logger.LogInformation("Data successfully stored in Cosmos DB.");
 
             return NoContent();
         }
         catch (Exception ex)
         {
-            _logger.LogInformation(ex, "An error occurred while processing the POST request.");
             return StatusCode(500, new { error = ex.Message });
         }
     }
 
     [HttpGet("event-data")]
-    public async Task<IActionResult> GetDeviceData()
+    public async Task<IActionResult> GetDeviceData([FromQuery] string deviceId = null, [FromQuery] string userId = null, [FromQuery] string eventName = null)
     {
         try
         {
-            _logger.LogInformation("Processing GET request to fetch device data.");
+            string query;
 
-            var query = "SELECT c.deviceId, c.Data.pC, c.Data.dID FROM c";
+            // Check if any query parameters are provided
+            if (!string.IsNullOrEmpty(deviceId) || !string.IsNullOrEmpty(userId) || !string.IsNullOrEmpty(eventName))
+            {
+                // Build the query dynamically based on provided parameters
+                query = "SELECT c.deviceId FROM c WHERE 1=1";
+
+                if (!string.IsNullOrEmpty(deviceId))
+                {
+                    query += $" AND c.deviceId = '{deviceId}'";
+                }
+
+                if (!string.IsNullOrEmpty(userId))
+                {
+                    query += $" AND c.userid = '{userId}'";
+                }
+
+                if (!string.IsNullOrEmpty(eventName))
+                {
+                    query += $" AND c.Event = '{eventName}'";
+                }
+            }
+            else
+            {
+                // No parameters provided, return the count of items in the container
+                query = "SELECT VALUE COUNT(1) FROM c";
+            }
+
             var items = await _cosmosDbService.QueryItemsAsync<dynamic>(query);
 
-            _logger.LogInformation("Successfully fetched device data.");
             return Ok(items);
         }
         catch (Exception ex)
         {
-            _logger.LogInformation(ex, "An error occurred while fetching device data.");
             return StatusCode(500, new { error = ex.Message });
         }
     }
+
 }
 public class ParticleEvent
 {
