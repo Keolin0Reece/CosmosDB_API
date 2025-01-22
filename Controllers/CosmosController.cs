@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
+using CosmosDbAppService.Models;
 
 
 [ApiController]
@@ -117,33 +118,34 @@ public class CosmosController : ControllerBase
         }
     }
 
-}
-public class ParticleEvent
-{
-    [JsonProperty("id")]
-    public string Id { get; set; } = Guid.NewGuid().ToString();
+    [HttpGet("last-hour")]
+    public async Task<IActionResult> GetLastHour([FromQuery] string deviceId)
+    {
+        try
+        {
+            // Get the current UTC time
+            var currentTimeUtc = DateTime.UtcNow;
 
-    [JsonProperty("EventId")]
-    public string EventId { get; set; }
+            // Calculate the timestamp for 1 hour ago (subtracting 1 hour)
+            var oneHourAgoUtc = currentTimeUtc.AddHours(-1);
 
-    [JsonProperty("Event")]
-    public string Event { get; set; }
+            // Format the time in ISO 8601 format (without milliseconds, matching the 'PublishedAt' format)
+            var formattedTime = oneHourAgoUtc.ToString("yyyy-MM-ddTHH:mm:ss");
 
-    [JsonProperty("Data")]
-    public Dictionary<string, object> Data { get; set; }
+            // Cosmos DB query to fetch records from the last hour
+            var query = $"SELECT c.Data.pV, c.PublishedAt FROM c WHERE c.PublishedAt >= '{formattedTime}' AND c.deviceId = '{deviceId}'";
 
-    [JsonProperty("deviceId")]
-    public string DeviceId { get; set; }
+            // Execute the query
+            var items = await _cosmosDbService.QueryItemsAsync<dynamic>(query);
 
-    [JsonProperty("PublishedAt")]
-    public DateTime PublishedAt { get; set; }
+            // Return the results
+            return Ok(items);
+        }
+        catch (Exception ex)
+        {
+            // Return an error response if something goes wrong
+            return StatusCode(500, new { error = ex.Message });
+        }
+    }
 
-    [JsonProperty("userid")]
-    public string UserId { get; set; }
-
-    [JsonProperty("ProductId")]
-    public string ProductId { get; set; }
-
-    [JsonProperty("FwVersion")]
-    public string FwVersion { get; set; }
 }
