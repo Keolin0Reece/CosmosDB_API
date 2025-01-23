@@ -119,21 +119,33 @@ public class CosmosController : ControllerBase
     }
 
     [HttpGet("last-hour")]
-    public async Task<IActionResult> GetLastHour([FromQuery] string deviceId)
+    public async Task<IActionResult> GetLastHour([FromQuery] string deviceId, [FromQuery] string startDate = null, [FromQuery] string endDate = null)
     {
         try
         {
-            // Get the current UTC time
-            var currentTimeUtc = DateTime.UtcNow;
+            DateTime startTime, endTime;
 
-            // Calculate the timestamp for 1 hour ago (subtracting 1 hour)
-            var oneHourAgoUtc = currentTimeUtc.AddHours(-1);
+            // If startDate and endDate are provided, parse them
+            if (!string.IsNullOrEmpty(startDate) && !string.IsNullOrEmpty(endDate))
+            {
+                if (!DateTime.TryParse(startDate, out startTime) || !DateTime.TryParse(endDate, out endTime))
+                {
+                    return BadRequest(new { error = "Invalid startDate or endDate format. Use ISO 8601 format." });
+                }
+            }
+            else
+            {
+                // If startDate or endDate are null, use the previous hour as the default range
+                endTime = DateTime.UtcNow;
+                startTime = endTime.AddHours(-1);
+            }
 
-            // Format the time in ISO 8601 format (without milliseconds, matching the 'PublishedAt' format)
-            var formattedTime = oneHourAgoUtc.ToString("yyyy-MM-ddTHH:mm:ss");
+            // Format the dates in ISO 8601 format (matching the 'PublishedAt' format)
+            var formattedStartTime = startTime.ToString("yyyy-MM-ddTHH:mm:ss");
+            var formattedEndTime = endTime.ToString("yyyy-MM-ddTHH:mm:ss");
 
-            // Cosmos DB query to fetch records from the last hour
-            var query = $"SELECT c.Data.pV, c.PublishedAt FROM c WHERE c.PublishedAt >= '{formattedTime}' AND c.deviceId = '{deviceId}'";
+            // Cosmos DB query to fetch records between the specified time range
+            var query = $"SELECT c.Data, c.PublishedAt FROM c WHERE c.PublishedAt >= '{formattedStartTime}' AND c.PublishedAt <= '{formattedEndTime}' AND c.deviceId = '{deviceId}'";
 
             // Execute the query
             var items = await _cosmosDbService.QueryItemsAsync<dynamic>(query);
