@@ -58,8 +58,7 @@
               "RelativeToolTip": "appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-01-21T14:14:22.175Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-21T14:14:22.175Z"
             },
             {
               "$type": "Document",
@@ -83,8 +82,7 @@
               "RelativeToolTip": "Services\\CosmoDbService.cs",
               "ViewState": "AgIAACYAAAAAAAAAAAAwwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-21T13:35:09.528Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-21T13:35:09.528Z"
             },
             {
               "$type": "Document",
@@ -94,7 +92,7 @@
               "RelativeDocumentMoniker": "Controllers\\CosmosController.cs",
               "ToolTip": "C:\\Users\\impul\\Documents\\CosmosDB_API\\Controllers\\CosmosController.cs",
               "RelativeToolTip": "Controllers\\CosmosController.cs",
-              "ViewState": "AgIAAH0AAAAAAAAAAAAIwIcAAAAQAAAAAAAAAA==",
+              "ViewState": "AgIAAJcAAAAAAAAAAAAqwL0AAAA5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-21T13:32:00.27Z",
               "EditorCaption": ""
@@ -109,8 +107,7 @@
               "RelativeToolTip": "Program.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAAAAA0AAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-21T13:22:10.736Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-21T13:22:10.736Z"
             }
           ]
         }

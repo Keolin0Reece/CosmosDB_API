@@ -160,4 +160,45 @@ public class CosmosController : ControllerBase
         }
     }
 
+    [HttpGet("get-property")]
+    public async Task<IActionResult> GetProperty([FromQuery] string deviceId, [FromQuery] string Data, [FromQuery] string startDate = null, [FromQuery] string endDate = null)
+    {
+        try
+        {
+            DateTime startTime, endTime;
+
+            // If startDate and endDate are provided, parse them
+            if (!string.IsNullOrEmpty(startDate) && !string.IsNullOrEmpty(endDate))
+            {
+                if (!DateTime.TryParse(startDate, out startTime) || !DateTime.TryParse(endDate, out endTime))
+                {
+                    return BadRequest(new { error = "Invalid startDate or endDate format. Use ISO 8601 format." });
+                }
+            }
+            else
+            {
+                // If startDate or endDate are null, use the previous hour as the default range
+                endTime = DateTime.UtcNow;
+                startTime = endTime.AddHours(-1);
+            }
+
+            // Format the dates in ISO 8601 format (matching the 'PublishedAt' format)
+            var formattedStartTime = startTime.ToString("yyyy-MM-ddTHH:mm:ss");
+            var formattedEndTime = endTime.ToString("yyyy-MM-ddTHH:mm:ss");
+
+            // Cosmos DB query to fetch records between the specified time range
+            var query = $"SELECT c.Data.{Data}, c.Data.ts FROM c WHERE c.PublishedAt >= '{formattedStartTime}' AND c.PublishedAt <= '{formattedEndTime}' AND c.deviceId = '{deviceId}'";
+
+            // Execute the query
+            var items = await _cosmosDbService.QueryItemsAsync<dynamic>(query);
+
+            // Return the results
+            return Ok(items);
+        }
+        catch (Exception ex)
+        {
+            // Return an error response if something goes wrong
+            return StatusCode(500, new { error = ex.Message });
+        }
+    }
 }
