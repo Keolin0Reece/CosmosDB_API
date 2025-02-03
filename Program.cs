@@ -9,6 +9,7 @@ using CosmosDbAppService;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 // Add controllers and configure them to use Newtonsoft.Json
 builder.Services.AddControllers()
     .AddNewtonsoftJson(options =>
