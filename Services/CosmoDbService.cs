@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+/// <summary>
+/// Service class for handling Cosmos DB operations.
+/// Provides methods for creating, retrieving, and querying items in a Cosmos DB container.
+/// </summary>
 public class CosmosDbService
 {
     private readonly Container _container;
@@ -13,6 +17,12 @@ public class CosmosDbService
         _container = cosmosClient.GetContainer(databaseName, containerName);
     }
 
+    /// <summary>
+    /// Adds a new item to the Cosmos DB container using the DeviceId as partition key
+    /// </summary>
+    /// <typeparam name="T">Type of the item to be added</typeparam>
+    /// <param name="item">The item to add to the container</param>
+    /// <exception cref="InvalidOperationException">Thrown when partition key (DeviceId) is missing or invalid</exception>
     public async Task AddItemAsync<T>(T item)
     {
         // Assuming the partition key is based on "DeviceId" in this case
@@ -27,7 +37,9 @@ public class CosmosDbService
     }
 
 
-    // Retrieve an item by ID and partition key
+    /// <summary>
+    /// Retrieves a specific item from the container using its ID and partition key
+    /// </summary>
     public async Task<T> GetItemAsync<T>(string id, string partitionKey)
     {
         try
@@ -41,7 +53,9 @@ public class CosmosDbService
         }
     }
 
-    //Query items in CosmosDB
+    /// <summary>
+    /// Executes a custom query against the container
+    /// </summary>
     public async Task<IEnumerable<T>> QueryItemsAsync<T>(string query)
     {
         var queryDefinition = new QueryDefinition(query);
@@ -57,7 +71,9 @@ public class CosmosDbService
         return results;
     }
 
-    // Retrieve all items from the container
+    /// <summary>
+    /// Retrieves all items from the container
+    /// </summary>
     public async Task<IEnumerable<T>> GetItemsAsync<T>()
     {
         var query = _container.GetItemQueryIterator<T>();
