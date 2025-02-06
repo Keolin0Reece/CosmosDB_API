@@ -111,9 +111,9 @@ Retrieves specific property values from device data.
 │   └── CosmosController.cs
 ├── Services/
 │   └── CosmosDbService.cs
-├── Middleware/
-│   └── ApiKeyMiddleware.cs
+├── ApiKeyMiddleware.cs
 ├── Models/
+│   ├── ParticleEvent.cs
 │   └── CosmosDbSettings.cs
 └── Program.cs
 ```
