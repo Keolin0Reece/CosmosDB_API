@@ -99,7 +99,7 @@ Retrieves specific property values from device data.
 
 ### Dependencies
 
-- .NET Core 6.0+
+- .NET 9.0
 - Microsoft.Azure.Cosmos
 - Newtonsoft.Json
 - Microsoft.AspNetCore.Mvc.NewtonsoftJson
