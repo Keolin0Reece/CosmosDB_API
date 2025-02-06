@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using CosmosDbAppService.Models;
 
-
+/// <summary>
+/// Controller for handling Cosmos DB operations related to particle events and device data.
+/// Provides endpoints for storing and retrieving event data with various filtering options.
+/// </summary>
 [ApiController]
 [Route("api/[controller]")]
 public class CosmosController : ControllerBase
@@ -18,6 +21,9 @@ public class CosmosController : ControllerBase
         _cosmosDbService = cosmosDbService;
     }
 
+    /// <summary>
+    /// Stores a new particle event in the Cosmos DB.
+    /// </summary>
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] dynamic requestBody)
     {
@@ -74,6 +80,13 @@ public class CosmosController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Retrieves device event data based on optional filter criteria.
+    /// </summary>
+    /// <param name="deviceId">Optional device identifier</param>
+    /// <param name="userId">Optional user identifier</param>
+    /// <param name="eventName">Optional event name</param>
+    /// <returns>Filtered event data or total count if no filters are provided</returns>
     [HttpGet("event-data")]
     public async Task<IActionResult> GetDeviceData([FromQuery] string deviceId = null, [FromQuery] string userId = null, [FromQuery] string eventName = null)
     {
@@ -118,6 +131,14 @@ public class CosmosController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Retrieves data for a specific device within a time range.
+    /// If no time range is specified, returns data from the last hour.
+    /// </summary>
+    /// <param name="deviceId">Device identifier</param>
+    /// <param name="startDate">Optional start date in ISO 8601 format</param>
+    /// <param name="endDate">Optional end date in ISO 8601 format</param>
+    /// <returns>Device data within the specified time range</returns>
     [HttpGet("last-hour")]
     public async Task<IActionResult> GetLastHour([FromQuery] string deviceId, [FromQuery] string startDate = null, [FromQuery] string endDate = null)
     {
@@ -160,6 +181,9 @@ public class CosmosController : ControllerBase
         }
     }
 
+     /// <summary>
+    /// Retrieves a specific property from device data within a time range.
+    /// </summary>
     [HttpGet("get-property")]
     public async Task<IActionResult> GetProperty([FromQuery] string deviceId, [FromQuery] string Data, [FromQuery] string startDate = null, [FromQuery] string endDate = null)
     {
@@ -184,6 +208,9 @@ public class CosmosController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Converts an ISO 8601 date string to Unix timestamp.
+    /// </summary>
     static long ConvertIso8601ToUnix(string isoDate)
     {
         DateTimeOffset dateTimeOffset = DateTimeOffset.Parse(isoDate);
