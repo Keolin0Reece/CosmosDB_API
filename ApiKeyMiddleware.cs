@@ -5,6 +5,10 @@ using System.Threading.Tasks;
 
 namespace CosmosDbAppService
 {
+    /// <summary>
+    /// Middleware component that validates API key authentication for incoming requests.
+    /// Expects a Bearer token in the Authorization header that matches the configured API key.
+    /// </summary>
     public class ApiKeyMiddleware
     {
         private readonly RequestDelegate _next;
